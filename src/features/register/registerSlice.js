@@ -1,27 +1,20 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = [
-  {
-    id: 1,
-    name: "David",
-    email: "david@example.com",
-    gener: "Hombre",
-    hobbies: ["dkashdjk", "hobbi2"],
-  },
-
-  {
-    id: 2,
-    name: "Daniela",
-    email: "daniela@example.com",
-    gener: "Mujer",
-    hobbies: ["dkashdjk", "hobbi2"],
-  },
-];
-
 export const registerSlice = createSlice({
   name: "register",
-  initialState: initialState,
-  reducers: {},
+  initialState: [],
+  reducers: {
+    addRegister: (state, action) => {
+      state.push(action.payload);
+      console.log(state);
+      localStorage.setItem("register", JSON.stringify(state));
+      const getItem = JSON.parse(localStorage.getItem("register"));
+      console.log(getItem);
+      getItem.push(action.payload);
+      localStorage.setItem("register", JSON.stringify(getItem));
+    },
+  },
 });
 
+export const { addRegister } = registerSlice.actions;
 export default registerSlice.reducer;
